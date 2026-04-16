@@ -237,26 +237,4 @@ The application includes:
 4. Push to the branch
 5. Open a Pull Request
 
-## 📝 License
 
-MIT License - feel free to use this project for your videos and tutorials!
-
-## 👨‍💻 Author
-
-**Amitabh**
-- YouTube: [Amitabh004](https://www.youtube.com/@Amitabh004)
-- GitHub: [Amitabh-DevOps](https://github.com/Amitabh-DevOps)
-
-## 🙏 Acknowledgments
-
-- Built for AWS EC2 deployment tutorial
-- Designed with modern web standards
-- Optimized for Docker containerization
-
-## 📺 Video Tutorial
-
-Check out the full deployment tutorial on YouTube: [Nodejs App Deployed on EC2](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
-
----
-
-**Made with ❤️ for the DevOps community**

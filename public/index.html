@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskFlow Pro - Modern task management application deployed on AWS EC2">
+    <title>TaskFlow Pro - Cloud Task Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 2L28 9V23L16 30L4 23V9L16 2Z" stroke="url(#gradient)" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M16 16L22 12M16 16L16 24M16 16L10 12" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient" x1="4" y1="2" x2="28" y2="30">
+                                    <stop offset="0%" stop-color="#667eea"/>
+                                    <stop offset="100%" stop-color="#764ba2"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="logo-title">TaskFlow Pro</h1>
+                        <p class="logo-subtitle">Deployed on AWS EC2</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="status-badge" id="statusBadge">
+                        <span class="status-dot"></span>
+                        <span>Connected</span>
+                    </div>
+                    <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 3V1M10 19V17M17 10H19M1 10H3M15.657 4.343L17.071 2.929M2.929 17.071L4.343 15.657M15.657 15.657L17.071 17.071M2.929 2.929L4.343 4.343" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Dashboard -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 11L12 14L22 4M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3.89543 5 5 3.89543 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Total Tasks</p>
+                    <p class="stat-value" id="totalTasks">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 8V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">In Progress</p>
+                    <p class="stat-value" id="inProgressTasks">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Completed</p>
+                    <p class="stat-value" id="completedTasks">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Pending</p>
+                    <p class="stat-value" id="pendingTasks">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Task Creation Card -->
+            <div class="card task-creator">
+                <h2 class="card-title">Create New Task</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title</label>
+                        <input type="text" id="taskTitle" placeholder="Enter task title..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" rows="3" placeholder="Add task description..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Add Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tasks List -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Your Tasks</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                </div>
+                <div id="tasksList" class="tasks-list">
+                    <!-- Tasks will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ❤️ using Node.js, Express & Docker | Deployed on AWS EC2</p>
+            <p class="footer-links">
+                <a href="https://github.com" target="_blank">GitHub</a>
+                <span>•</span>
+                <a href="#" id="apiDocs">API Docs</a>
+                <span>•</span>
+                <span id="serverUptime">Uptime: --</span>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
